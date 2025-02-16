@@ -21,79 +21,93 @@ public class EllipseModel : IShape
     public double RX { get; set; }
     public double RY { get; set; }
     
-    IEnumerable<PointInfo> midptellipse()
+    IEnumerable<EllipsePointInfo> midptellipse()
     {
      
-        double dx, dy, d1, d2, x, y;
-        x = 0;
+        double dx, dy, d1, d2, x, y, oldp, olddx, olddy;
+        x = 1;
         y = RY;
      
         // Initial decision parameter of region 1
         d1 = (RY * RY) - (RX * RX * RY) +
-                        (0.25f * RX * RX);
+            (0.25f * RX * RX);
         dx = 2 * RY * RY * x;
         dy = 2 * RX * RX * y;
-         
+        oldp = d1;
+        olddx = dx;
+        olddy = dy;
+        
         // For region 1
-        while (dx < dy)
-        {
-         
-            // points based on 4-way symmetry
-            yield return new PointInfo {x = ( x + X)  , y = ( y + Y)};
-            yield return new PointInfo {x = (-x + X) , y =  ( y + Y)};
-            yield return new PointInfo {x = ( x + X)  , y = (-y + Y)};
-            yield return new PointInfo {x = (-x + X)  , y = (-y + Y)};
-            
-     
+        while (olddx < olddy)
+        {                 
             // Checking and updating value of
             // decision parameter based on algorithm
-            if (d1 < 0) 
+            // points based on 4-way symmetry
+            yield return new EllipsePointInfo {x = ( x + X) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = (-x + X) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = ( x + X) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = (-x + X) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+            olddx = dx;
+            olddy = dy;
+            if (oldp < 0)
             {
-                x++;
-                dx = dx + (2 * RY * RY);
                 d1 = d1 + dx + (RY * RY);
             }
             else
             {
-                x++;
-                y--;
-                dx = dx + (2 * RY * RY);
-                dy = dy - (2 * RX * RX);
-                d1 = d1 + dx - dy + (RY * RY);
+                d1 = d1 + (dx - dy + (RY * RY));
             }
+            oldp = d1;
+            if (d1 >= 0 && olddx < olddy)
+            {
+                y--;
+                dy = 2 * RX * RX * y;
+            }
+            if (olddx < olddy)
+            {
+                x++;
+            }
+            dx = 2 * RY * RY * x;
         }
-     
+    
         // Decision parameter of region 2
-        d2 = ((RY * RY) * ((x + 0.5f) * (x + 0.5f)))
+        d2 = (RY * RY) * (((x + 0.5f) * (x + 0.5f)))
             + ((RX * RX) * ((y - 1) * (y - 1)))
             - (RX * RX * RY * RY);
-     
+        oldp = d2;
+        if (d2 < 0){
+            x++;
+        }
+        y--;
+        dx = 2 * RY * RY * x;
+        dy = 2 * RX * RX * y;
         // Plotting points of region 2
         while (y >= 0)
         {
      
             // points based on 4-way symmetry
-            yield return new PointInfo {x = ( x + X)  , y = ( y + Y)};
-            yield return new PointInfo {x = (-x + X)  , y = ( y + Y)};
-            yield return new PointInfo {x = ( x + X)  , y = (-y + Y)};
-            yield return new PointInfo {x = (-x + X)  , y = (-y + Y)};
+            yield return new EllipsePointInfo {x = ( x )  , y = ( y ) , PK = d2 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = (-x )  , y = ( y ) , PK = d2 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = ( x )  , y = (-y ) , PK = d2 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = (-x )  , y = (-y ) , PK = d2 , dx = dx , dy = dy};
 
             // Checking and updating parameter
             // value based on algorithm
-            if (d2 > 0)
+            if (oldp > 0)
             {
-                y--;
-                dy = dy - (2 * RX * RX);
                 d2 = d2 + (RX * RX) - dy;
             }
             else
             {
-                y--;
-                x++;
-                dx = dx + (2 * RY * RY);
-                dy = dy - (2 * RX * RX);
                 d2 = d2 + dx - dy + (RX * RX);
             }
+            oldp = d2;
+            if (d2 < 0){
+                x++;
+                dx = 2 * RY * RY * x;
+            }
+            y--;
+            dy = 2 * RX * RX * y;
         }
     }
 }

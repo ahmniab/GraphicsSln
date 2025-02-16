@@ -35,6 +35,9 @@
                                 case AlgorithmType.BresenhamCircle:
                                     <CircleBresTable ShapePoints="@((s.GetIndexes() as IEnumerable<BresPointInfo>)?.ToArray() ?? [])"></CircleBresTable>
                                     break;
+                                case AlgorithmType.MidPointEllipse:
+                                    <EllipseTable ShapePoints="@((s.GetIndexes() as IEnumerable<EllipsePointInfo>)?.ToArray() ?? [])"></EllipseTable>
+                                    break;
                                 default:
                                     <h4>un known algoritm</h4>
                                     break;

@@ -24,44 +24,41 @@ public class CircleModel : IShape
     private IEnumerable<BresPointInfo> CircleBres()
     {
 
-            int x = 0, y = Radius;
-            int Pk = 3 - 2 * Radius;
+            int x = 1, y = Radius;
+            int Pk = 1 - Radius;
             int OldP = Pk;
-            yield return new BresPointInfo{x = X-x, y = Y+y, Pk = OldP};
-            yield return new BresPointInfo{x = X+x, y = Y+y, Pk = OldP};
-            yield return new BresPointInfo{x = X+x, y = Y-y, Pk = OldP};
-            yield return new BresPointInfo{x = X-x, y = Y-y, Pk = OldP};
-            yield return new BresPointInfo{x = X+y, y = Y+x, Pk = OldP};
-            yield return new BresPointInfo{x = X-y, y = Y+x, Pk = OldP};
-            yield return new BresPointInfo{x = X+y, y = Y-x, Pk = OldP};
-            yield return new BresPointInfo{x = X-y, y = Y-x, Pk = OldP};
+            // yield return new BresPointInfo{x = X-x, y = Y+y, Pk = OldP};
+            // yield return new BresPointInfo{x = X+x, y = Y+y, Pk = OldP};
+            // yield return new BresPointInfo{x = X+x, y = Y-y, Pk = OldP};
+            // yield return new BresPointInfo{x = X-x, y = Y-y, Pk = OldP};
+            // yield return new BresPointInfo{x = X+y, y = Y+x, Pk = OldP};
+            // yield return new BresPointInfo{x = X-y, y = Y+x, Pk = OldP};
+            // yield return new BresPointInfo{x = X+y, y = Y-x, Pk = OldP};
+            // yield return new BresPointInfo{x = X-y, y = Y-x, Pk = OldP};
             
             
             while (y >= x){
-      
-                // check for decision parameter
-                // and correspondingly 
-                // update d, y
-                
-                if (Pk > 0) {
-                    y--; 
-                    Pk = Pk + 4 * (x - y) + 10;
-                }
-                else
-                    Pk = Pk + 4 * x + 6;
 
-                // Increment x after updating decision parameter
-                x++;
-        
                 // Draw the circle using the new coordinates
-                yield return new BresPointInfo{x = X-x, y = Y+y, Pk = OldP};
                 yield return new BresPointInfo{x = X+x, y = Y+y, Pk = OldP};
+                yield return new BresPointInfo{x = X-x, y = Y+y, Pk = OldP};
                 yield return new BresPointInfo{x = X+x, y = Y-y, Pk = OldP};
                 yield return new BresPointInfo{x = X-x, y = Y-y, Pk = OldP};
                 yield return new BresPointInfo{x = X+y, y = Y+x, Pk = OldP};
                 yield return new BresPointInfo{x = X-y, y = Y+x, Pk = OldP};
                 yield return new BresPointInfo{x = X+y, y = Y-x, Pk = OldP};
                 yield return new BresPointInfo{x = X-y, y = Y-x, Pk = OldP};
+
+                if (OldP > 0) {
+                    Pk = Pk + (2 * x) + 1 - (2 * y);
+                }
+                else
+                    Pk = Pk + 2 * x + 1;
+
+                if (Pk > 0){
+                    y--;
+                }
+                x++;
                 OldP = Pk;
             }
     }
