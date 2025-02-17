@@ -35,10 +35,15 @@ public class EllipseModel : IShape
         dy = 2 * RX * RX * y;
         oldp = d1;
 
-        yield return new EllipsePointInfo {x = ( x + X) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
-        yield return new EllipsePointInfo {x = (-x + X) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
-        yield return new EllipsePointInfo {x = ( x + X) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
-        yield return new EllipsePointInfo {x = (-x + X) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = 0 , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = 0 , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = 0 , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = 0 , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+        
+        yield return new EllipsePointInfo {x = ( x ) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = ( -x ) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = ( x ) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+        yield return new EllipsePointInfo {x = ( -x ) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
 
         // For region 1
         while (dx < dy)
@@ -62,10 +67,10 @@ public class EllipseModel : IShape
             // Checking and updating value of
             // decision parameter based on algorithm
             // points based on 4-way symmetry
-            yield return new EllipsePointInfo {x = ( x + X) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
-            yield return new EllipsePointInfo {x = (-x + X) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
-            yield return new EllipsePointInfo {x = ( x + X) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
-            yield return new EllipsePointInfo {x = (-x + X) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = ( x ) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = (-x ) , y = ( y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = ( x ) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
+            yield return new EllipsePointInfo {x = (-x ) , y = (-y ) , PK = d1 , dx = dx , dy = dy};
         }
     
         // Decision parameter of region 2
