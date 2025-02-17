@@ -27,14 +27,14 @@ public class CircleModel : IShape
             int x = 1, y = Radius;
             int Pk = 1 - Radius;
             int OldP = Pk;
-            // yield return new BresPointInfo{x = X-x, y = Y+y, Pk = OldP};
-            // yield return new BresPointInfo{x = X+x, y = Y+y, Pk = OldP};
-            // yield return new BresPointInfo{x = X+x, y = Y-y, Pk = OldP};
-            // yield return new BresPointInfo{x = X-x, y = Y-y, Pk = OldP};
-            // yield return new BresPointInfo{x = X+y, y = Y+x, Pk = OldP};
-            // yield return new BresPointInfo{x = X-y, y = Y+x, Pk = OldP};
-            // yield return new BresPointInfo{x = X+y, y = Y-x, Pk = OldP};
-            // yield return new BresPointInfo{x = X-y, y = Y-x, Pk = OldP};
+            yield return new BresPointInfo{x = X-0, y = Y+y, Pk = OldP};
+            yield return new BresPointInfo{x = X+0, y = Y+y, Pk = OldP};
+            yield return new BresPointInfo{x = X+0, y = Y-y, Pk = OldP};
+            yield return new BresPointInfo{x = X-0, y = Y-y, Pk = OldP};
+            yield return new BresPointInfo{x = X+y, y = Y+x, Pk = OldP};
+            yield return new BresPointInfo{x = X-y, y = Y+x, Pk = OldP};
+            yield return new BresPointInfo{x = X+y, y = Y-x, Pk = OldP};
+            yield return new BresPointInfo{x = X-y, y = Y-x, Pk = OldP};
             
             
             while (y >= x){

@@ -11,7 +11,7 @@
     <tbody>
 
     @if(ShapePoints.Any()){
-        @for (int k = 0, i = 0; i < ShapePoints.Length; i += 8 , k++ )
+        @for (int k = 0, i = 8; i < ShapePoints.Length; i += 8 , k++ )
         {
             <tr>
                 <td>@k</td>
