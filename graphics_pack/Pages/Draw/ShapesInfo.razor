@@ -1,0 +1,43 @@
+<h4>Shapes Info</h4>
+<div class="accordion" id="accordion">
+    @foreach(IShape s in ShapeList.Shapes)
+    {
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="shape_@s.GetHashCode()">
+                <button class="accordion-button" 
+                        type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#collapse_@s.GetHashCode()" 
+                        aria-expanded="true" 
+                        aria-controls="collapse_@s.GetHashCode()"
+                        style="color: @(s?.color ?? "black")"
+                        >
+                    @s.name
+                </button>
+            </h2>
+            <div id="collapse_@s.GetHashCode()" class="accordion-collapse collapse " aria-labelledby="shape_@s.GetHashCode()" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    @if (s is Models.LineModel)
+                    {
+                        <LinePointsTable ShapePoints="s.GetIndexes()"></LinePointsTable>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IShapeList ShapeList { set; get; }
+    
+    /*new List<IShape>()
+    {
+        new Models.LineModel {name = "line1", color = "gray"},
+        new Models.LineModel {name = "line2", color = "maroon"},
+        new Models.LineModel {name = "line3", color = "green"},
+        new Models.LineModel {name = "line4", color = "aqua"},
+        new Models.LineModel {name = "line5", color = "teal"},
+    };
+*/
+}

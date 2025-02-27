@@ -1,0 +1,43 @@
+<table class="table table-sm table-striped table-bordered text-center"> 
+    <thead>
+    <tr>
+        <th>k</th>
+        <th>x</th>
+        <th>y</th>
+        <th>(x,y)</th>
+    </tr>
+    </thead> 
+    <tbody> 
+    @if (ShapePoints?.Count() > 0)
+    {
+        @foreach (LinePoint p in ShapePoints)
+        {
+            <tr>
+                <td>@p.k</td>
+                <td>@p.x</td>
+                <td>@p.y</td>
+                <td>(@Math.Round(p.x),@Math.Round(p.y))</td>
+            </tr>
+            
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="5" class="text-center">
+                No Points
+            </td>
+        </tr>
+    }
+    </tbody> 
+</table>
+
+@code
+{
+
+    [Parameter] 
+    public IEnumerable<object> ShapePoints { get; set; } = Enumerable.Empty<object>();
+    
+    
+    
+}

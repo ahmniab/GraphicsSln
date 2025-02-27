@@ -1,0 +1,27 @@
+@inherits LayoutComponentBase 
+<div class="container-fluid">
+     
+    <div class="row p-2">
+        <div class="col-2">
+            <div class="d-grid gap-1">
+                <NavLink class="btn btn-outline-primary" 
+                         href="/Draw/Line" 
+                         ActiveClass="btn-primary text-white" 
+                         Match="NavLinkMatch.Prefix"> Draw Line 
+                </NavLink> 
+                <NavLink
+                    class="btn btn-outline-primary"
+                    href="/Draw/Ellipse"
+                    ActiveClass="btn-primary text-white"
+                    Match="NavLinkMatch.Prefix">
+                    Draw Ellipse
+                </NavLink>
+            </div> 
+        </div>
+        <div class="col">
+             @Body
+        </div> 
+        
+        
+    </div>
+</div>

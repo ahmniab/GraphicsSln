@@ -1,0 +1,88 @@
+@page "/Draw/Line" 
+@page "/Draw"
+@inherits OwningComponentBase<IShapeList>
+
+<h3>Draw Line</h3>
+<EditForm Model="@line" OnValidSubmit="HandleValidSubmit" class="row g-3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    
+   
+    <div class="col-md-4">
+        <label for="XStart" class="form-label">X Start</label>
+        <input type="number" class="form-control" id="XStart" @bind-value="line.XStart">
+    </div>
+    <div class="col-md-4">
+        <label for="YStart" class="form-label">Y Start</label>
+        <input type="number" class="form-control" id="YStart" @bind-value="line.YStart">
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <label for="XEnd" class="form-label">X End</label>
+        <input type="number" class="form-control" id="XEnd" @bind-value="line.XEnd">
+    </div>
+    <div class="col-md-4">
+        <label for="YEnd" class="form-label">Y End</label>
+        <input type="number" class="form-control" id="YEnd" @bind-value="line.YEnd">
+    </div>
+
+    <div class="col-md-4"></div>
+
+    
+    <div class="col-md-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText class="form-control" id="name" @bind-value="line.name">
+        </InputText>
+    </div>
+    
+    <div class="col-md-3">
+        <label for="inputState" class="form-label"> Algorithm</label>
+        <InputSelect id="inputState" class="form-select" @bind-value="line.IsDDA">
+            <option selected value="true">DDA</option>
+            <option value="false">Bresenham</option>
+        </InputSelect>
+    </div>
+    <div class="col-md-2">
+        <label for="Color" class="form-label">Color</label>
+        <input type="color" class="form-control form-control-color" id="Color" title="Choose your color" @bind="line.color">
+    </div>
+    
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Draw</button>
+    </div>
+</EditForm>
+<DrawBoard ShapeList="ShapeList"></DrawBoard>
+<ShapesInfo ShapeList="ShapeList"></ShapesInfo>
+
+@code {
+    private static int id = 1;
+    private LineModel line = new LineModel
+    {
+        name = $"Line{id++}", 
+        color = "#000000", 
+        IsDDA = true,
+        XStart = 0,
+        XEnd = 200,
+        YStart = 50,
+        YEnd = 50
+    };
+    private IShapeList ShapeList => Service;
+    
+    private void HandleValidSubmit()
+    {
+        ImageBuilder ImgBuilder = new();
+        ImgBuilder.SetShape(line).Builed().Save();
+        ShapeList.AddShape(line);
+        
+        // reset line
+        line = new LineModel {
+            name = $"Line{id++}", 
+            color = "#000000", 
+            IsDDA = true,
+            XStart = 0,
+            XEnd = 200,
+            YStart = 50,
+            YEnd = 50
+        };
+    }
+}

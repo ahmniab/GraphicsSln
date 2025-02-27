@@ -1,0 +1,16 @@
+
+<h4>Draw Board</h4>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="board border">
+        @foreach (var s in ShapeList.Shapes)
+        {
+            <img src="@(s.ImgSrc ?? "/imgs/grid-line.png")">
+        }
+        <img src="/imgs/grid-line.png">
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public IShapeList ShapeList { get; set; }
+}
