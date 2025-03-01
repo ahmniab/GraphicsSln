@@ -6,4 +6,5 @@ public interface IShape
     public string name { get; set; } 
     public string color { get; set; }
     public string? ImgSrc { get; set; }
+    public AlgorithmType Algorithm { get; set; }
 }

@@ -11,7 +11,7 @@ public class LineTests
         l.YStart = 3;
         l.XEnd = 9;
         l.YEnd = 8;
-        l.IsDDA = true;
+        l.Algorithm = AlgorithmType.LineDDA;
         
         Point [] referencePoints = new Point[]
         {

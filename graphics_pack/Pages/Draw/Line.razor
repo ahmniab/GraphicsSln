@@ -38,9 +38,9 @@
     
     <div class="col-md-3">
         <label for="inputState" class="form-label"> Algorithm</label>
-        <InputSelect id="inputState" class="form-select" @bind-value="line.IsDDA">
-            <option selected value="true">DDA</option>
-            <option value="false">Bresenham</option>
+        <InputSelect id="inputState" class="form-select" @bind-value="line.Algorithm">
+            <option selected value="@AlgorithmType.LineDDA">DDA</option>
+            <option value="@AlgorithmType.LineBresenham">Bresenham</option>
         </InputSelect>
     </div>
     <div class="col-md-2">
@@ -70,7 +70,7 @@
     {
         name = $"Line{id++}", 
         color = "#000000", 
-        IsDDA = true,
+        Algorithm = AlgorithmType.LineDDA,
         XStart = 2,
         XEnd = 9,
         YStart = 3,
@@ -87,7 +87,7 @@
         line = new LineModel {
             name = $"Line{id++}", 
             color = line.color, 
-            IsDDA = line.IsDDA,
+            Algorithm = line.Algorithm,
             XStart = line.XStart,
             XEnd = line.XEnd,
             YStart = line.YStart,

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -15,18 +16,25 @@ public class LineModel : IShape
     public string? color { get; set; }
     
     public string? ImgSrc { get; set; }
-    public bool IsDDA { get; set; }
+    public AlgorithmType Algorithm { get; set; }
     
     public IEnumerable<Point> GetIndexes()
     {
-        if (IsDDA)
+        switch(Algorithm)
         {
-            return DDA();
+            case AlgorithmType.LineDDA :
+                return DDA();
+            case AlgorithmType.LineBresenham :
+                return Bresenham();
+            default:
+                throw new NonValidAlgorithmException();
+                
         }
-        else
-        {
-            throw new Exception();
-        }
+    }
+
+    private IEnumerable<Point> Bresenham()
+    {
+        return Enumerable.Empty<Point>();
     }
     private IEnumerable<Point> DDA()
     {

@@ -1,3 +1,4 @@
+@using System.Diagnostics
 @inject IShapeList ShapeList
 @inject NumberOfShapesState NumberOfShapesState
 <h4>Shapes Info</h4>
@@ -22,11 +23,18 @@
                     @if (s is Models.LineModel)
                     {
                         <div class="d-flex flex-row mb-3">
-                            <LinePointsTable ShapePoints="s.GetIndexes()"></LinePointsTable>
+                            @switch(s.Algorithm){
+                                case AlgorithmType.LineDDA :
+                                    <LineDDATable ShapePoints="s.GetIndexes()"></LineDDATable>
+                                    break;
+                                default:
+                                    <h4>un known algoritm</h4>
+                                    break;
+                            }
                             <div class="shape-preview">
                                 <div>
                                     <div class="border">
-                                        <img src="@s.ImgSrc" />
+                                        <img src="@s.ImgSrc"/>
                                         <img src="assets/imgs/grid-line.png"/>
                                     </div>
                                     <button class="btn btn-danger"
