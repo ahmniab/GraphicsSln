@@ -13,10 +13,11 @@
         <tbody> 
         @if (ShapePoints?.Count() > 0)
         {
+            
             @foreach (Point p in ShapePoints)
             {
                 <tr>
-                    <td>0</td>
+                    <td>@(k++)</td>
                     <td>@p.x</td>
                     <td>@p.y</td>
                     <td>(@Math.Round(p.x),@Math.Round(p.y))</td>
@@ -41,6 +42,6 @@
 
     [Parameter] 
     public IEnumerable<Point> ShapePoints { get; set; } = Enumerable.Empty<Point>();
-
+    private int k = 0;
 
 }
