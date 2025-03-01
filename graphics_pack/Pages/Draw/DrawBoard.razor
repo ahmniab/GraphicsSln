@@ -1,7 +1,9 @@
+@inject IShapeList ShapeList
+@inject NumberOfShapesState NumberOfShapesState
 
 <h4>Draw Board</h4>
 <div class="d-flex align-items-center justify-content-center">
-    <div class="board border">
+    <div class="board board-big border">
         @foreach (var s in ShapeList.Shapes)
         {
             <img src="@(s.ImgSrc ?? "/imgs/grid-line.png")">
@@ -11,6 +13,13 @@
 </div>
 
 @code {
-    [Parameter]
-    public IShapeList ShapeList { get; set; }
+    protected override void OnInitialized()
+    {
+        NumberOfShapesState.OnChange += StateHasChanged;
+
+    }
+    public void Dispose()
+    {
+        NumberOfShapesState.OnChange -= StateHasChanged;
+    }
 }

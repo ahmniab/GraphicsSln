@@ -1,3 +1,5 @@
+@inject IShapeList ShapeList
+@inject NumberOfShapesState NumberOfShapesState
 <h4>Shapes Info</h4>
 <div class="accordion" id="accordion">
     @foreach(IShape s in ShapeList.Shapes)
@@ -19,7 +21,24 @@
                 <div class="accordion-body">
                     @if (s is Models.LineModel)
                     {
-                        <LinePointsTable ShapePoints="s.GetIndexes()"></LinePointsTable>
+                        <div class="d-flex flex-row mb-3">
+                            <LinePointsTable ShapePoints="s.GetIndexes()"></LinePointsTable>
+                            <div class="shape-preview">
+                                <div>
+                                    <div class="border">
+                                        <img src="@s.ImgSrc" />
+                                        <img src="assets/imgs/grid-line.png"/>
+                                    </div>
+                                    <button class="btn btn-danger"
+                                            onclick="@(new Action<object>(e => DeleteShape(s.GetHashCode())))">
+                                        delete
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
                     }
                 </div>
             </div>
@@ -28,16 +47,19 @@
 </div>
 
 @code {
-    [Parameter]
-    public IShapeList ShapeList { set; get; }
-    
-    /*new List<IShape>()
+    protected override void OnInitialized()
     {
-        new Models.LineModel {name = "line1", color = "gray"},
-        new Models.LineModel {name = "line2", color = "maroon"},
-        new Models.LineModel {name = "line3", color = "green"},
-        new Models.LineModel {name = "line4", color = "aqua"},
-        new Models.LineModel {name = "line5", color = "teal"},
-    };
-*/
+        NumberOfShapesState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        NumberOfShapesState.OnChange -= StateHasChanged;
+    }
+    
+    public void DeleteShape(int Hash)
+    {
+        ShapeList.RemoveShape(Hash);
+        NumberOfShapesState.NotifyStateChanged();
+    }
 }
