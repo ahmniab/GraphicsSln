@@ -45,12 +45,20 @@ public class ImageBuilder
             }
         }
     }
-
+    
     private void FillShape()
     {
-        foreach (Models.Point p in Shape.GetIndexes())
+        foreach (var p in Shape.GetIndexes())
         {
-            ImageMatrex[(int)(Math.Round(p.x) + 250), (int)(250 - Math.Round(p.y))] = FgColor;
+            try
+            {
+                ImageMatrex[p.GetXOnImageMatrex(), p.GetYOnImageMatrex()] = FgColor;
+            }
+            catch (OutOfImageBoundException) { }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
         }
     }
     

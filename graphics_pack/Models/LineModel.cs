@@ -21,16 +21,16 @@ public class LineModel : IShape
     {
         if (IsDDA)
         {
-            foreach (LinePoint p in DDA())
-            {
-                yield return p;
-            }
+            return DDA();
         }
-        
+        else
+        {
+            throw new Exception();
+        }
     }
-    private IEnumerable<LinePoint> DDA()
+    private IEnumerable<Point> DDA()
     {
-        int dx = XEnd - XStart, dy = YEnd - XStart, steps, k;
+        int dx = XEnd - XStart, dy = YEnd - YStart, steps, k;
         double xIncrement, yIncrement, x = XStart, y = YStart;
 
         if (Math.Abs(dx) > Math.Abs(dy))
@@ -40,20 +40,13 @@ public class LineModel : IShape
 
         xIncrement = (double)dx / steps;
         yIncrement = (double)dy / steps;
-
-        yield return new LinePoint
-        {
-            k = -1,
-            x = x,
-            y = y,
-        };
+        
         for (k = 0; k < steps; k++)
         {
             x += xIncrement;
             y += yIncrement;
-            yield return new LinePoint
+            yield return new Point
             {
-                k = k,
                 x = x,
                 y = y,
             };
