@@ -1,4 +1,7 @@
 @inherits LayoutComponentBase 
+@inject IShapeList ShapeList
+@inject NumberOfShapesState NumberOfShapesState
+
 <div class="container-fluid">
      
     <div class="row p-2">
@@ -16,10 +19,22 @@
                     Match="NavLinkMatch.Prefix">
                     Draw Ellipse
                 </NavLink>
+                <button class="btn btn-outline-danger"
+                        onclick="@(new Action<object>(e =>
+                                 {
+                                     ShapeList.Clear();
+                                     NumberOfShapesState.NotifyStateChanged();
+                                     ImageHelper.DeleteAllGeneratedFiles();
+                                 }))"
+                        >Clear All</button>
             </div> 
         </div>
         <div class="col">
-             @Body
+            @Body
+            <br>
+            <DrawBoard ></DrawBoard>
+            <br>
+            <ShapesInfo ></ShapesInfo>
         </div> 
         
         

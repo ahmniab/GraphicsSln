@@ -9,8 +9,7 @@ public class ImageBuilder
     public Image<Rgba32> ImageMatrex { get; } = new Image<Rgba32>(500, 500);
     private Rgba32 BgColor = new Rgba32(0, 0, 0, 0);
     private Rgba32 FgColor;
-    private IShape Shape;
-    private static int Id = 0;
+    public IShape Shape;
 
     public ImageBuilder SetBgColor(Rgba32 color)
     {
@@ -54,12 +53,7 @@ public class ImageBuilder
             ImageMatrex[(int)(Math.Round(p.x) + 250), (int)(250 - Math.Round(p.y))] = FgColor;
         }
     }
-
-    public void Save()
-    {
-        Shape.ImgSrc = $"/imgs/{Shape.name}-{Id++}.png";
-        ImageMatrex.Save($"wwwroot/assets{Shape.ImgSrc}");
-    }
+    
     public ImageBuilder Builed()
     {
         FillBg();
