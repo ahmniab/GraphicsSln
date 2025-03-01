@@ -24,8 +24,11 @@
                     {
                         <div class="d-flex flex-row mb-3">
                             @switch(s.Algorithm){
-                                case AlgorithmType.LineDDA :
-                                    <LineDDATable ShapePoints="s.GetIndexes()"></LineDDATable>
+                                case AlgorithmType.DDALine :
+                                    <LineDDATable ShapePoints="@s.GetIndexes()"></LineDDATable>
+                                    break;
+                                case AlgorithmType.BresenhamLine:
+                                    <LineBresTable ShapePoints="@(s.GetIndexes() as IEnumerable<LineBresPointInfo>)"></LineBresTable>
                                     break;
                                 default:
                                     <h4>un known algoritm</h4>
