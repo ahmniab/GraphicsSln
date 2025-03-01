@@ -39,8 +39,8 @@
     <div class="col-md-3">
         <label for="inputState" class="form-label"> Algorithm</label>
         <InputSelect id="inputState" class="form-select" @bind-value="line.Algorithm">
-            <option selected value="@AlgorithmType.LineDDA">DDA</option>
-            <option value="@AlgorithmType.LineBresenham">Bresenham</option>
+            <option selected value="@AlgorithmType.BresenhamLine">Bresenham</option>
+            <option value="@AlgorithmType.DDALine">DDA</option>
         </InputSelect>
     </div>
     <div class="col-md-2">
@@ -70,7 +70,7 @@
     {
         name = $"Line{id++}", 
         color = "#000000", 
-        Algorithm = AlgorithmType.LineDDA,
+        Algorithm = AlgorithmType.BresenhamLine,
         XStart = 2,
         XEnd = 9,
         YStart = 3,

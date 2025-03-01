@@ -18,13 +18,13 @@ public class LineModel : IShape
     public string? ImgSrc { get; set; }
     public AlgorithmType Algorithm { get; set; }
     
-    public IEnumerable<Point> GetIndexes()
+    public IEnumerable<PointInfo> GetIndexes()
     {
         switch(Algorithm)
         {
-            case AlgorithmType.LineDDA :
+            case AlgorithmType.DDALine :
                 return DDA();
-            case AlgorithmType.LineBresenham :
+            case AlgorithmType.BresenhamLine :
                 return Bresenham();
             default:
                 throw new NonValidAlgorithmException();
@@ -32,11 +32,38 @@ public class LineModel : IShape
         }
     }
 
-    private IEnumerable<Point> Bresenham()
+    private IEnumerable<LineBresPointInfo> Bresenham()
     {
-        return Enumerable.Empty<Point>();
+        LineBresPointInfo PointInfo = new LineBresPointInfo();
+            int dx = Math.Abs(XEnd - XStart),  dy = Math.Abs(YEnd - YStart);
+            int x, y, p = 2 * dy - dx;
+            int twoDy = 2 * dy,  twoDyMinusDx = 2 * (dy - dx);
+
+            /* Determine which endpoint to use as start position.  */
+            if (XStart > XEnd) {
+                x = XEnd;    y = YEnd;   XEnd = XStart;
+            }
+            else {
+                x = XStart;    y = YStart;
+            }
+
+            while (x < XEnd) {
+                PointInfo.Pk = p;
+                x++;
+                if (p < 0)
+                    p += twoDy;
+                else {
+                    y++;
+                    p += twoDyMinusDx;
+                }
+
+                PointInfo.x = x;
+                PointInfo.y = y;
+                yield return PointInfo;
+            }
+        
     }
-    private IEnumerable<Point> DDA()
+    private IEnumerable<PointInfo> DDA()
     {
         int dx = XEnd - XStart, dy = YEnd - YStart, steps, k;
         double xIncrement, yIncrement, x = XStart, y = YStart;
@@ -53,7 +80,7 @@ public class LineModel : IShape
         {
             x += xIncrement;
             y += yIncrement;
-            yield return new Point
+            yield return new PointInfo
             {
                 x = x,
                 y = y,

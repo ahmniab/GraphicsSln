@@ -1,6 +1,5 @@
 using graphics_pack.Models;
 using SixLabors.ImageSharp;
-using Point = graphics_pack.Models.Point;
 
 namespace graphics_pack.Graphics;
 
@@ -47,17 +46,17 @@ public static class ImageHelper
         }
     }
 
-    public static int GetXOnImageMatrex(this Point Point)
+    public static int GetXOnImageMatrex(this PointInfo pointInfo)
     {
-        int FinalX = (int)Math.Round(Point.x);
+        int FinalX = (int)Math.Round(pointInfo.x);
         FinalX += 250;
         if (FinalX >= 500 || FinalX < 0)
             throw new OutOfImageBoundException();
         return FinalX;
     }
-    public static int GetYOnImageMatrex(this Point Point)
+    public static int GetYOnImageMatrex(this PointInfo pointInfo)
     {
-        int FinalY = (int)Math.Round(Point.y);
+        int FinalY = (int)Math.Round(pointInfo.y);
         FinalY = 250 - FinalY;
         if (FinalY >= 500 || FinalY < 0)
             throw new OutOfImageBoundException();

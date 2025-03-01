@@ -11,19 +11,19 @@ public class LineTests
         l.YStart = 3;
         l.XEnd = 9;
         l.YEnd = 8;
-        l.Algorithm = AlgorithmType.LineDDA;
+        l.Algorithm = AlgorithmType.DDALine;
         
-        Point [] referencePoints = new Point[]
+        PointInfo [] referencePoints = new PointInfo[]
         {
-            new Point {x = 3, y = 3.71},
-            new Point {x = 4, y = 4.43},
-            new Point {x = 5, y = 5.14},
-            new Point {x = 6, y = 5.86},
-            new Point {x = 7, y = 6.57},
-            new Point {x = 8, y = 7.29},
-            new Point {x = 9, y = 8   },
+            new PointInfo {x = 3, y = 3.71},
+            new PointInfo {x = 4, y = 4.43},
+            new PointInfo {x = 5, y = 5.14},
+            new PointInfo {x = 6, y = 5.86},
+            new PointInfo {x = 7, y = 6.57},
+            new PointInfo {x = 8, y = 7.29},
+            new PointInfo {x = 9, y = 8   },
         };
-        Point[] outputPoints = l.GetIndexes().ToArray();
+        PointInfo[] outputPoints = l.GetIndexes().ToArray();
         //Assert
         Assert.Equal(referencePoints.Length, outputPoints.Length);
         

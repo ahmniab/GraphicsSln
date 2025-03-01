@@ -14,7 +14,7 @@
         @if (ShapePoints?.Count() > 0)
         {
             
-            @foreach (Point p in ShapePoints)
+            @foreach (PointInfo p in ShapePoints)
             {
                 <tr>
                     <td>@(k++)</td>
@@ -41,7 +41,7 @@
 {
 
     [Parameter] 
-    public IEnumerable<Point> ShapePoints { get; set; } = Enumerable.Empty<Point>();
+    public IEnumerable<PointInfo> ShapePoints { get; set; } = Enumerable.Empty<PointInfo>();
     private int k = 0;
 
 }
