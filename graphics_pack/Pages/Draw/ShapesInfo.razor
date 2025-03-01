@@ -30,7 +30,7 @@
                                         <img src="assets/imgs/grid-line.png"/>
                                     </div>
                                     <button class="btn btn-danger"
-                                            onclick="@(new Action<object>(e => DeleteShape(s.GetHashCode())))">
+                                            onclick="@(new Action<object>(e => DeleteShape(s)))">
                                         delete
                                     </button>
                                 </div>
@@ -57,9 +57,10 @@
         NumberOfShapesState.OnChange -= StateHasChanged;
     }
     
-    public void DeleteShape(int Hash)
+    public void DeleteShape(IShape Shape)
     {
-        ShapeList.RemoveShape(Hash);
+        Shape.DeleteImage();
+        ShapeList.RemoveShape(Shape.GetHashCode());
         NumberOfShapesState.NotifyStateChanged();
     }
 }

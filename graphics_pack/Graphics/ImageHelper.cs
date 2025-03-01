@@ -1,3 +1,4 @@
+using graphics_pack.Models;
 using SixLabors.ImageSharp;
 
 namespace graphics_pack.Graphics;
@@ -24,6 +25,19 @@ public static class ImageHelper
             {
                 File.Delete(Image);
             }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    public static bool DeleteImage(this IShape Shape)
+    {
+        try
+        {
+            File.Delete($"wwwroot/assets{Shape.ImgSrc}");
             return true;
         }
         catch (Exception ex)
