@@ -32,19 +32,22 @@ public class LineModel : IShape
         }
     }
 
-    private IEnumerable<LineBresPointInfo> Bresenham()
+    private IEnumerable<BresPointInfo> Bresenham()
     {
-        LineBresPointInfo PointInfo = new LineBresPointInfo();
+        BresPointInfo PointInfo = new BresPointInfo();
             int dx = Math.Abs(XEnd - XStart),  dy = Math.Abs(YEnd - YStart);
             int x, y, p = 2 * dy - dx;
             int twoDy = 2 * dy,  twoDyMinusDx = 2 * (dy - dx);
 
             /* Determine which endpoint to use as start position.  */
             if (XStart > XEnd) {
-                x = XEnd;    y = YEnd;   XEnd = XStart;
+                x = XEnd;    
+                y = YEnd;   
+                XEnd = XStart;
             }
             else {
-                x = XStart;    y = YStart;
+                x = XStart;    
+                y = YStart;
             }
 
             while (x < XEnd) {

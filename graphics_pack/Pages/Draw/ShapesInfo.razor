@@ -1,4 +1,6 @@
 @using System.Diagnostics
+@using System.Linq;
+@using System.Runtime.InteropServices.JavaScript
 @inject IShapeList ShapeList
 @inject NumberOfShapesState NumberOfShapesState
 <h4>Shapes Info</h4>
@@ -20,19 +22,23 @@
             </h2>
             <div id="collapse_@s.GetHashCode()" class="accordion-collapse collapse " aria-labelledby="shape_@s.GetHashCode()" data-bs-parent="#accordion">
                 <div class="accordion-body">
-                    @if (s is Models.LineModel)
-                    {
+                    
                         <div class="d-flex flex-row mb-3">
-                            @switch(s.Algorithm){
-                                case AlgorithmType.DDALine :
+                            @switch (s.Algorithm)
+                            {
+                                case AlgorithmType.DDALine:
                                     <LineDDATable ShapePoints="@s.GetIndexes()"></LineDDATable>
                                     break;
                                 case AlgorithmType.BresenhamLine:
-                                    <LineBresTable ShapePoints="@(s.GetIndexes() as IEnumerable<LineBresPointInfo>)"></LineBresTable>
+                                    <LineBresTable ShapePoints="@(s.GetIndexes() as IEnumerable<BresPointInfo>)"></LineBresTable>
+                                    break;
+                                case AlgorithmType.BresenhamCircle:
+                                    <CircleBresTable ShapePoints="@((s.GetIndexes() as IEnumerable<BresPointInfo>)?.ToArray() ?? [])"></CircleBresTable>
                                     break;
                                 default:
                                     <h4>un known algoritm</h4>
                                     break;
+
                             }
                             <div class="shape-preview">
                                 <div>
@@ -50,7 +56,7 @@
 
                         </div>
 
-                    }
+                    
                 </div>
             </div>
         </div>

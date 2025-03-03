@@ -2,19 +2,27 @@
     <thead>
     <tr>
         <th>k</th>
-        <th>P<sub>k</sub>(4)</th>
+        <th>P<sub>k</sub></th>
         <th>(x<sub>k+1</sub>, y<sub>k+1</sub>)</th>
             
     </tr>
     </thead> 
     <tbody> 
-     
-    @foreach (LineBresPointInfo p in ShapePoints)
+    @if(ShapePoints.Any()){
+    @foreach (BresPointInfo p in ShapePoints)
     {
         <tr>
             <td>@(k++)</td>
             <td>@p.Pk</td>
             <td>(@p.x, @p.y))</td>
+        </tr>
+    }
+    }
+    else{
+        <tr>
+            <td colspan="5" class="text-center">
+                No Points
+            </td>
         </tr>
     }
 
@@ -26,7 +34,7 @@
 {
 
     [Parameter] 
-    public IEnumerable<LineBresPointInfo> ShapePoints { get; set; } = Enumerable.Empty<LineBresPointInfo>();
+    public IEnumerable<BresPointInfo> ShapePoints { get; set; } = [];
     private int k = 0;
 
 }

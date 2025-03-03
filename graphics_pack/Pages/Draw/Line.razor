@@ -80,11 +80,8 @@
     private void HandleValidSubmit()
     {
         ImageBuilder ImgBuilder = new();
-        ImgBuilder.SetShape(line).Builed().Save();
-        ShapeList.AddShape(line);
-        
         // reset line
-        line = new LineModel {
+        LineModel NewLine = new LineModel {
             name = $"Line{id++}", 
             color = line.color, 
             Algorithm = line.Algorithm,
@@ -93,6 +90,9 @@
             YStart = line.YStart,
             YEnd = line.YEnd
         };
+        ShapeList.AddShape(line);
+        ImgBuilder.SetShape(line).Builed().Save();
+        line = NewLine;
         NumberOfShapesState.NotifyStateChanged();
     }
 }

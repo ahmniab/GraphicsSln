@@ -1,0 +1,80 @@
+@page "/Draw/Circle"
+@inject IShapeList ShapeList
+@inject NumberOfShapesState NumberOfShapesState
+
+<h3>Draw Circle</h3>
+<EditForm Model="@circle" OnValidSubmit="HandleValidSubmit" class="row g-3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <div class="col-md-4">
+        <label for="XStart" class="form-label">X</label>
+        <input type="number" class="form-control" id="XStart" @bind-value="circle.X">
+    </div>
+    <div class="col-md-4">
+        <label for="YStart" class="form-label">Y</label>
+        <input type="number" class="form-control" id="YStart" @bind-value="circle.Y">
+    </div>
+    <div class="col-md-4"></div>
+    
+    <div class="col-md-3">
+        <label for="Radius" class="form-label">Radius</label>
+        <InputNumber class="form-control" id="Radius" @bind-value="circle.Radius">
+        </InputNumber>
+    </div>
+
+    <div class="col-md-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText class="form-control" id="name" @bind-value="circle.name">
+        </InputText>
+    </div>
+
+    <div class="col-md-2">
+        <label for="Color" class="form-label">Color</label>
+        <input type="color" class="form-control form-control-color" id="Color" title="Choose your color" @bind="circle.color">
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Draw</button>
+    </div>
+</EditForm>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        NumberOfShapesState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        NumberOfShapesState.OnChange -= StateHasChanged;
+    }
+    private static int id = 1;
+    private CircleModel circle = new CircleModel
+    {
+        name = $"circle{id++}",
+        X = 0,
+        Y = 0,
+        color = "#eb5e34"
+    };
+
+    private void HandleValidSubmit(EditContext obj)
+    {
+        ImageBuilder ImgBuilder = new();
+        CircleModel NewCircle = new CircleModel
+        {
+            name = $"circle{id++}",
+            X = 0,
+            Y = 0,
+            color = "#eb5e34",
+            Radius = circle.Radius
+        };
+        ShapeList.AddShape(circle);
+        ImgBuilder.SetShape(circle).Builed().Save();
+        circle = NewCircle;
+        NumberOfShapesState.NotifyStateChanged();
+    }
+
+}
