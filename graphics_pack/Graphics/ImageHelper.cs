@@ -1,5 +1,6 @@
 using graphics_pack.Models;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace graphics_pack.Graphics;
 
@@ -61,6 +62,10 @@ public static class ImageHelper
         if (FinalY >= 500 || FinalY < 0)
             throw new OutOfImageBoundException();
         return FinalY;
+    }
+    public static Image<Rgba32> LoadPenguinImage()
+    {
+        return Image.Load<Rgba32>("wwwroot/assets/imgs/penguin.png");
     }
         
 }

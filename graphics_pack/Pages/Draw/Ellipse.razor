@@ -1,6 +1,81 @@
 @page "/Draw/Ellipse"
-<h3>Draw Ellipse</h3>
+@inject IShapeList ShapeList
+@inject NumberOfShapesState NumberOfShapesState
+
+<h3>Draw Circle</h3>
+<EditForm Model="@ellipse" OnValidSubmit="HandleValidSubmit" class="row g-3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <div class="col-md-4">
+        <label for="XStart" class="form-label">X</label>
+        <input type="number" class="form-control" id="XStart" @bind-value="ellipse.X">
+    </div>
+    <div class="col-md-4">
+        <label for="YStart" class="form-label">Y</label>
+        <input type="number" class="form-control" id="YStart" @bind-value="ellipse.Y">
+    </div>
+    <div class="col-md-4"></div>
+
+    <div class="col-md-3">
+        <label for="RadiusX" class="form-label">Radius x</label>
+        <InputNumber class="form-control" id="RadiusX" @bind-value="ellipse.RX">
+        </InputNumber>
+    </div>
+    <div class="col-md-3">
+        <label for="RadiusY" class="form-label">Radius Y</label>
+        <InputNumber class="form-control" id="RadiusY" @bind-value="ellipse.RY">
+        </InputNumber>
+    </div>
+
+    <div class="col-md-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText class="form-control" id="name" @bind-value="ellipse.name">
+        </InputText>
+    </div>
+
+    <div class="col-md-2">
+        <label for="Color" class="form-label">Color</label>
+        <input type="color" class="form-control form-control-color" id="Color" title="Choose your color" @bind="ellipse.color">
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Draw</button>
+    </div>
+</EditForm>
+
 
 @code {
-    
+
+    private static int id = 1;
+    private EllipseModel ellipse = new EllipseModel
+    {
+        name = $"Ellipse{id++}",
+        X = 0,
+        Y = 0,
+        RX = 10,
+        RY = 10,
+        color = "#613583"
+    };
+
+    private void HandleValidSubmit(EditContext obj)
+    {
+        ImageBuilder ImgBuilder = new();
+        EllipseModel NewEllipse = new EllipseModel
+        {
+            name = $"Ellipse{id++}",
+            X = ellipse.X,
+            Y = ellipse.Y,
+            RX = ellipse.RX,
+            RY = ellipse.RY,
+            color = ellipse.color,
+            
+        };
+        ShapeList.AddShape(ellipse);
+        ImgBuilder.SetShape(ellipse).Builed().Save();
+        ellipse = NewEllipse;
+        NumberOfShapesState.NotifyStateChanged();
+    }
+
 }

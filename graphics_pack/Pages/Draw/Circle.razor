@@ -42,15 +42,7 @@
 
 
 @code {
-    protected override void OnInitialized()
-    {
-        NumberOfShapesState.OnChange += StateHasChanged;
-    }
-
-    public void Dispose()
-    {
-        NumberOfShapesState.OnChange -= StateHasChanged;
-    }
+    
     private static int id = 1;
     private CircleModel circle = new CircleModel
     {

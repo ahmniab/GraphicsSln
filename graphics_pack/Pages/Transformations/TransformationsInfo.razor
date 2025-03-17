@@ -1,0 +1,38 @@
+@inject TransformationsFactory Factory
+@inject TransformationsState TransformationsState
+
+<h3>Transformations</h3>
+@foreach (var t in Factory)
+{
+    <div class="alert alert-info" role="alert">
+        @t.Name
+        <div>
+            
+            <i class="fa-solid fa-trash"
+               onclick="@(new Action<object>(e => DeleteShape(t)))">
+                
+            </i>
+        </div>
+    </div>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        TransformationsState.OnChange += StateHasChanged;
+
+    }
+    public void Dispose()
+    {
+        TransformationsState.OnChange -= StateHasChanged;
+    }
+
+
+    private void DeleteShape(ITransformation t)
+    {
+        Factory.DeleteTransformation(t);
+        Factory.ApplyAndSave();
+        TransformationsState.NotifyStateChanged();
+    }
+
+}

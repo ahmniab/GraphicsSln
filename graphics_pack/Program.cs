@@ -7,6 +7,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IShapeList, ShapeList>();
 builder.Services.AddSingleton<NumberOfShapesState>();
+builder.Services.AddSingleton<TransformationsState>();
+builder.Services.AddSingleton<TransformationsFactory>();
 var app = builder.Build();
 
 
@@ -31,4 +33,5 @@ app.UseStaticFiles(new StaticFileOptions
 app.MapRazorPages();
 app.MapBlazorHub();
 app.MapFallbackToPage("/Draw/{*catchall}", "/Draw/Main");
+app.MapFallbackToPage("/Transformations/{*catchall}", "/Transformations/Main");
 app.Run();

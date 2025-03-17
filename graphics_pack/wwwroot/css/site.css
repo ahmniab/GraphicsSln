@@ -39,3 +39,38 @@
 .shape-preview .btn-danger{
     margin: 10px auto 0 auto;
 }
+
+.trans-out{
+    width: 550px;
+    height: 550px;
+    position: relative;
+    margin: 0;
+    border-radius: 10px;
+    border: black solid 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.trans-out img{
+    width: 500px;
+}
+.alert.alert-info {
+    position: relative;
+}
+.alert.alert-info > div{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.alert.alert-info > div>i{
+    color: black;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.alert.alert-info > div>i:hover{
+    color: red;
+}
