@@ -74,7 +74,7 @@ public class EllipseModel : IShape
      
             // points based on 4-way symmetry
             yield return new PointInfo {x = ( x + X)  , y = ( y + Y)};
-            yield return new PointInfo {x = (-x + X) , y =  ( y + Y)};
+            yield return new PointInfo {x = (-x + X)  , y = ( y + Y)};
             yield return new PointInfo {x = ( x + X)  , y = (-y + Y)};
             yield return new PointInfo {x = (-x + X)  , y = (-y + Y)};
 
