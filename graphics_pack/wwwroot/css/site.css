@@ -54,10 +54,10 @@
 .trans-out img{
     width: 500px;
 }
-.alert.alert-info {
+.alert {
     position: relative;
 }
-.alert.alert-info > div{
+.alert > div{
     position: absolute;
     top: 0px;
     right: 10px;
@@ -66,11 +66,11 @@
     justify-content: center;
     align-items: center;
 }
-.alert.alert-info > div>i{
+.alert > div>i{
     color: black;
     transition-duration: 0.2s;
     cursor: pointer;
 }
-.alert.alert-info > div>i:hover{
+.alert > div>i:hover{
     color: red;
 }

@@ -27,10 +27,10 @@
                     Draw Ellipse
                 </NavLink>
                 <button class="btn btn-outline-danger"
-                        onclick="@(new Action<object>(e =>
+                        onclick="@(new Action<object>( async e =>
                                  {
                                      ShapeList.Clear();
-                                     ImageHelper.DeleteAllGeneratedFiles();
+                                     ImageHelper.DeleteAllGeneratedShapes();
                                      NumberOfShapesState.NotifyStateChanged();
                                  }))"
                         >Clear All</button>

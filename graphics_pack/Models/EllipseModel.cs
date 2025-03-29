@@ -13,7 +13,7 @@ public class EllipseModel : IShape
     }
 
     public string name { get; set; } = "Ellipse";
-    public string color { get; set; }
+    public string? color { get; set; }
     public string? ImgSrc { get; set; }
     public AlgorithmType Algorithm { get; set; } = AlgorithmType.MidPointEllipse;
     public double X { get; set; }

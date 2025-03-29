@@ -4,12 +4,12 @@
 <h3>Transformations</h3>
 @foreach (var t in Factory)
 {
-    <div class="alert alert-info" role="alert">
+    <div class="alert @TransformationCssClass(t)" role="alert">
         @t.Name
         <div>
             
             <i class="fa-solid fa-trash"
-               onclick="@(new Action<object>(e => DeleteShape(t)))">
+               onclick="@(new Action<object>(async e => await DeleteShape(t)))">
                 
             </i>
         </div>
@@ -28,11 +28,19 @@
     }
 
 
-    private void DeleteShape(ITransformation t)
+    private async Task DeleteShape(ITransformation t)
     {
         Factory.DeleteTransformation(t);
         Factory.ApplyAndSave();
-        TransformationsState.NotifyStateChanged();
+        await InvokeAsync(() => TransformationsState.NotifyStateChanged());
     }
 
+    private string TransformationCssClass(ITransformation t) => t switch
+        {
+            TranslationModel => "alert-info",
+            ScalingModel     => "alert-warning",
+            RotationModel    => "alert-primary",
+            _                => "alert-danger"
+        };
+    
 }

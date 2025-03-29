@@ -16,7 +16,7 @@ public static class ImageHelper
         
     }
 
-    public static bool DeleteAllGeneratedFiles()
+    public static bool DeleteAllGeneratedShapes()
     {
         try
         {
@@ -24,7 +24,10 @@ public static class ImageHelper
 
             foreach (string Image in Images)
             {
-                File.Delete(Image);
+                if (!Image.EndsWith("penguin.png"))
+                {
+                    File.Delete(Image);
+                }
             }
             return true;
         }
