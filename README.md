@@ -23,5 +23,5 @@ dotnet add package Moq
 u need to add image package in `GraphicsSln/graphics_pack` dir
 
 ```bash
-dotnet add package SixLabors.ImageSharp
+dotnet add package SixLabors.ImageSharp --version 3.1.6
 ```
