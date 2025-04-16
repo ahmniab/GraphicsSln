@@ -68,7 +68,7 @@
         YEnd = 8
     };
     
-    private void HandleValidSubmit()
+    private async Task HandleValidSubmit()
     {
         ImageBuilder ImgBuilder = new();
         // reset line
@@ -82,8 +82,8 @@
             YEnd = line.YEnd
         };
         ShapeList.AddShape(line);
-        ImgBuilder.SetShape(line).Builed().Save();
+        await InvokeAsync(ImgBuilder.SetShape(line).Builed().Save);
         line = NewLine;
-        NumberOfShapesState.NotifyStateChanged();
+        await InvokeAsync(NumberOfShapesState.NotifyStateChanged);
     }
 }

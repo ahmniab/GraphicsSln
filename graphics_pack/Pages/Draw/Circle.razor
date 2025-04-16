@@ -52,7 +52,7 @@
         color = "#eb5e34"
     };
 
-    private void HandleValidSubmit(EditContext obj)
+    private async Task HandleValidSubmit(EditContext obj)
     {
         ImageBuilder ImgBuilder = new();
         CircleModel NewCircle = new CircleModel
@@ -64,9 +64,9 @@
             Radius = circle.Radius
         };
         ShapeList.AddShape(circle);
-        ImgBuilder.SetShape(circle).Builed().Save();
+        await InvokeAsync(ImgBuilder.SetShape(circle).Builed().Save);
         circle = NewCircle;
-        NumberOfShapesState.NotifyStateChanged();
+        await InvokeAsync(NumberOfShapesState.NotifyStateChanged);
     }
 
 }

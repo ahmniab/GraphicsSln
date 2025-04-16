@@ -31,9 +31,9 @@
                                  {
                                      ShapeList.Clear();
                                      ImageHelper.DeleteAllGeneratedShapes();
-                                     NumberOfShapesState.NotifyStateChanged();
+                                     await InvokeAsync(NumberOfShapesState.NotifyStateChanged);
                                  }))"
-                        >Clear All</button>
+                >Clear All</button>
             </div> 
         </div>
         <div class="col">

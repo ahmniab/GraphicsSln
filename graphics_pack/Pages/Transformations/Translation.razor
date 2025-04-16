@@ -26,11 +26,11 @@
 @code {
     TranslationModel TranslationModel = new();
 
-    public void HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
         Factory.AddTransformation(TranslationModel);
         TranslationModel = new TranslationModel();
-        Factory.ApplyAndSave();
-        TranState.NotifyStateChanged();
+        await InvokeAsync(Factory.ApplyAndSave);
+        await InvokeAsync(TranState.NotifyStateChanged);
     }
 }

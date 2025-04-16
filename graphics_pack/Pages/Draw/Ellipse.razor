@@ -59,7 +59,7 @@
         color = "#613583"
     };
 
-    private void HandleValidSubmit(EditContext obj)
+    private async Task HandleValidSubmit(EditContext obj)
     {
         ImageBuilder ImgBuilder = new();
         EllipseModel NewEllipse = new EllipseModel
@@ -73,9 +73,9 @@
             
         };
         ShapeList.AddShape(ellipse);
-        ImgBuilder.SetShape(ellipse).Builed().Save();
+        await InvokeAsync(ImgBuilder.SetShape(ellipse).Builed().Save);
         ellipse = NewEllipse;
-        NumberOfShapesState.NotifyStateChanged();
+        await InvokeAsync(NumberOfShapesState.NotifyStateChanged);
     }
 
 }
