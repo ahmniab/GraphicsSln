@@ -27,10 +27,10 @@
                             @switch (s.Algorithm)
                             {
                                 case AlgorithmType.DDALine:
-                                    <LineDDATable ShapePoints="@s.GetIndexes()"></LineDDATable>
+                                    <LineDDATable ShapePoints="@(s.GetIndexes())"></LineDDATable>
                                     break;
                                 case AlgorithmType.BresenhamLine:
-                                    <LineBresTable ShapePoints="@(s.GetIndexes() as IEnumerable<BresPointInfo>)"></LineBresTable>
+                                    <LineBresTable ShapePoints="@((s.GetIndexes() as IEnumerable<BresPointInfo>)?.ToArray() ?? [])"></LineBresTable>
                                     break;
                                 case AlgorithmType.BresenhamCircle:
                                     <CircleBresTable ShapePoints="@((s.GetIndexes() as IEnumerable<BresPointInfo>)?.ToArray() ?? [])"></CircleBresTable>

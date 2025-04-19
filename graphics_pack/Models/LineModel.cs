@@ -1,6 +1,4 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Runtime.CompilerServices;
 
 namespace graphics_pack.Models;
 
@@ -30,7 +28,7 @@ public class LineModel : IShape
         }
     }
 
-    private int OctantNumber; 
+    private int OctantNumber = -1; 
     private int IncX = 1; 
     private int IncY = 1; 
     private void SetOctantNumber()
@@ -116,11 +114,21 @@ public class LineModel : IShape
             (p.x, p.y) = (p.y, p.x);
         }
     }
-    private bool IsLineEnd(int x)
+    private void ResetXY()
     {
-        return Math.Abs(x - XEnd) == 1 || x - XEnd == 0;
+        if (OctantNumber == 2 || 
+            OctantNumber == 3 || 
+            OctantNumber == 6 || 
+            OctantNumber == 7)
+        {
+            SwapXY();
+        }
     }
+    private bool IsLineEnd(int x) 
+        => Math.Abs(x - XEnd) == 1 || x - XEnd == 0;
+        
     
+    [MethodImpl(MethodImplOptions.Synchronized)]
     private IEnumerable<BresPointInfo> Bresenham()
     {
         MakeLineInOctantOne();
@@ -130,8 +138,7 @@ public class LineModel : IShape
         int twoDy = 2 * dy, twoDyMinusDx = 2 * (dy - dx);
         
         x = XStart;
-        y = YStart;
-        
+        y = YStart;        
 
         while (!IsLineEnd(x))
         {
@@ -149,7 +156,9 @@ public class LineModel : IShape
             PointInfo.y = y;
             SwapBackIfShouldTo(PointInfo);
             yield return PointInfo;
+            PointInfo = new();
         }
+        ResetXY();
     }
 
     private IEnumerable<PointInfo> DDA()
