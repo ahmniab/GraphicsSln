@@ -6,7 +6,7 @@ namespace graphics_pack.Models;
 
 public class ShearingModel : ITransformation
 {
-    public string Name { get; set; } = "Shear";
+    public string Name { get; set; } = "Shearing";
     
     [Required(ErrorMessage = "Please provide a value for horizontal shear.")]
     [Range(-10.0, 10.0, ErrorMessage = "Shear value must be between -10 and 10.")]
