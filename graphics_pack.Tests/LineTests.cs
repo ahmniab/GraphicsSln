@@ -34,4 +34,28 @@ public class LineTests
         }
                 
     }
+
+
+    [Fact]
+    public void BresLine_returns_correct_line_every_function_call()
+    {
+        LineModel l = new();
+        l.XStart = 5;
+        l.YStart = 5;
+        l.XEnd = 10;
+        l.YEnd = 20;
+        l.Algorithm = AlgorithmType.BresenhamLine;
+        
+        PointInfo [] point_arr1 = l.GetIndexes().ToArray();
+        PointInfo [] point_arr2 = l.GetIndexes().ToArray();
+        
+        Assert.Equal(point_arr1.Length, point_arr2.Length);
+        
+        for (int i = 0; i < point_arr1.Length; i++)
+        {
+            Assert.Equal (point_arr1[i].x, point_arr2[i].x);
+            Assert.Equal (point_arr1[i].y, point_arr2[i].y);
+        }
+
+    }
 }
