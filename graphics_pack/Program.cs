@@ -1,4 +1,5 @@
 using graphics_pack.Models;
+using graphics_pack.Graphics;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);

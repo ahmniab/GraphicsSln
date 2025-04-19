@@ -1,22 +1,21 @@
 using System.Collections;
-using graphics_pack.Graphics;
+using graphics_pack.Models;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace graphics_pack.Models;
+namespace graphics_pack.Graphics;
 
 public class TransformationsFactory : IEnumerable<ITransformation>
 {
     public string ImageSrc { get; set; } = "assets/imgs/penguin.png";
     Image<Rgba32> image;
-    private Rgba32[,] input, output;
+    private Rgba32[,] input;
     public TransformationsFactory()
     {
         ImageSrc  = "assets/imgs/penguin.png";
         image = ImageHelper.LoadPenguinImage();
         input = new Rgba32[image.Width, image.Height];
         ResetInput();
-        output = new Rgba32[image.Width, image.Height];
     }
 
     private List<ITransformation> Transformations { get; set; } 
@@ -41,6 +40,7 @@ public class TransformationsFactory : IEnumerable<ITransformation>
 
     private void ResetInput()
     {
+        input = new Rgba32[image.Width, image.Height];
         for (int y = 0; y < image.Height; y++)
         {
             for (int x = 0; x < image.Width; x++)
@@ -48,24 +48,6 @@ public class TransformationsFactory : IEnumerable<ITransformation>
                 input[x, y] = image[x, y];
             }
         }
-    }
-
-    private void ResetOutput()
-    {
-        Rgba32 color = new Rgba32 {R = 0, G = 0, B = 0, A = 0};
-        
-        for (int y = 0; y < image.Height; y++)
-        {
-            for (int x = 0; x < image.Width; x++)
-            {
-                output[x, y] = color;
-            }
-        }
-    }
-
-    private void SwapIO()
-    {
-        (input, output) = (output, input);
     }
 
     public void ApplyAndSave()
@@ -77,12 +59,9 @@ public class TransformationsFactory : IEnumerable<ITransformation>
     public void Apply()
     {
         ResetInput();
-        ResetOutput();
         foreach (var t in Transformations)
         {
-            t.Apply(input, output);
-            SwapIO();
-            ResetOutput();
+            input = t.Apply(input);
         }
         
     }
@@ -91,9 +70,12 @@ public class TransformationsFactory : IEnumerable<ITransformation>
     {
         using (Image<Rgba32> OutputImage = new Image<Rgba32>(image.Width, image.Height))
         {
-            for (int y = 0; y < OutputImage.Height; y++)
+            int width  = Math.Min(OutputImage.Width , input.GetLength(0));
+            int height = Math.Min(OutputImage.Height, input.GetLength(1));
+            
+            for (int y = 0; y < height; y++)
             {
-                for (int x = 0; x < OutputImage.Width; x++)
+                for (int x = 0; x < width; x++)
                 {
                     OutputImage[x, y] = input[x, y];
                 }

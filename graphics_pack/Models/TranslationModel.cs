@@ -8,27 +8,27 @@ public class TranslationModel : ITransformation
     public int delta_x;
     public int delta_y;
     
-    public void Apply(Rgba32[,] input, Rgba32[,] output)
+    public Rgba32[,] Apply(Rgba32[,] input)
     {
+        int newWidth = input.GetLength(0) + Math.Abs(delta_x);
+        int newHeight = input.GetLength(1) + Math.Abs(delta_y);
+        Rgba32[,] output = new Rgba32[newWidth, newHeight];
+
         for (int x = 0; x < input.GetLength(0); x++)
         {
             for (int y = 0; y < input.GetLength(1); y++)
             {
-                try
+                int newX = x + delta_x;
+                int newY = y + delta_y;
+
+                if (newX >= 0 && newX < newWidth && newY >= 0 && newY < newHeight)
                 {
-                    output[x + delta_x, y + delta_y] = input[x, y];
-                }
-                catch (IndexOutOfRangeException e)
-                {
-                    if (x + delta_x > input.GetLength(0) - 1 
-                     || y + delta_y > input.GetLength(1) - 1)
-                        break;
-                    if (x + delta_x < 0 || y + delta_y < 0)
-                        continue;
-                    
+                    output[newX, newY] = input[x, y];
                 }
             }
         }
+
+        return output;
     }
 
 }

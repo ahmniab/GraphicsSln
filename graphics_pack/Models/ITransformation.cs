@@ -5,5 +5,5 @@ namespace graphics_pack.Models;
 public interface ITransformation
 {
     public string Name { get; set; }
-    public void Apply(Rgba32 [,] input, Rgba32 [,] output);
+    public Rgba32 [,] Apply(Rgba32 [,] input);
 }
