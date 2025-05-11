@@ -25,11 +25,12 @@
 @code {
     ScalingModel _scalingModel = new ScalingModel { ScaleX = 1, ScaleY = 1 };
 
-    public async Task HandleValidSubmit()
+    public void HandleValidSubmit() => InvokeAsync(Apply);
+    private async Task Apply()
     {
         Factory.AddTransformation(_scalingModel);
         _scalingModel = new ScalingModel { ScaleX = 1, ScaleY = 1 };
-        await InvokeAsync(Factory.ApplyAndSave);
-        await InvokeAsync(TranState.NotifyStateChanged);
+        Factory.ApplyAndSave();
+        TranState.NotifyStateChanged();
     }
 }

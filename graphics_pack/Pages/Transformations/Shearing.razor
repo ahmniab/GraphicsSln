@@ -25,11 +25,13 @@
 @code {
     ShearingModel _shearingModel = new ShearingModel { ShearX = 1, ShearY = 1 };
 
-    public async Task HandleValidSubmit()
+    public void HandleValidSubmit() => InvokeAsync(Apply);
+
+    public async Task Apply()
     {
         Factory.AddTransformation(_shearingModel);
         _shearingModel = new ShearingModel { ShearX = 1, ShearY = 1 };
-        await InvokeAsync(Factory.ApplyAndSave);
-        await InvokeAsync(TranState.NotifyStateChanged);
+        Factory.ApplyAndSave();
+        TranState.NotifyStateChanged();
     }
 }

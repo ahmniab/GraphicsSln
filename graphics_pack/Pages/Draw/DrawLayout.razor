@@ -27,12 +27,7 @@
                     Draw Ellipse
                 </NavLink>
                 <button class="btn btn-outline-danger"
-                        onclick="@(new Action<object>( async e =>
-                                 {
-                                     ShapeList.Clear();
-                                     ImageHelper.DeleteAllGeneratedShapes();
-                                     await InvokeAsync(NumberOfShapesState.NotifyStateChanged);
-                                 }))"
+                        onclick="@HandleClearAll"
                 >Clear All</button>
             </div> 
         </div>
@@ -47,3 +42,17 @@
         
     </div>
 </div>
+@code
+{
+    public async Task HandleClearAll()
+    {
+        InvokeAsync(ClearAll);
+    }
+    public void ClearAll()
+    {
+        ShapeList.Clear();
+        ImageHelper.DeleteAllGeneratedShapes();
+        NumberOfShapesState.NotifyStateChanged();
+    }
+    
+}

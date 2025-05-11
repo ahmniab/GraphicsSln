@@ -50,7 +50,7 @@
                                         <img src="assets/imgs/grid-line.png"/>
                                     </div>
                                     <button class="btn btn-danger"
-                                            onclick="@(new Action<object>(e => DeleteShape(s)))">
+                                            onclick="@(new Action<object>(e => HandleDeleteShape(s)))">
                                         delete
                                     </button>
                                 </div>
@@ -75,6 +75,11 @@
     public void Dispose()
     {
         NumberOfShapesState.OnChange -= StateHasChanged;
+    }
+
+    public async Task HandleDeleteShape(IShape Shape)
+    {
+        InvokeAsync(() => DeleteShape(Shape));
     }
     
     public void DeleteShape(IShape Shape)

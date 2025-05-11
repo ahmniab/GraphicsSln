@@ -4,7 +4,7 @@ namespace graphics_pack.Models;
 
 public class LineModel : IShape
 {
-    public int XStart { get; set; }
+    public int XStart { get; set; } // x1
     public int YStart { get; set; }
     public int XEnd { get; set; }
     public int YEnd { get; set; }
@@ -34,7 +34,7 @@ public class LineModel : IShape
     private void SetOctantNumber()
     {
         double slope = (YEnd - YStart) / (double)(XEnd - XStart);
-        if (0 < slope && slope < 1) // Octant 1 or 5
+        if (0 < slope && slope <= 1) // Octant 1 or 5
         {
             if (XStart < XEnd)
                 OctantNumber = 1;

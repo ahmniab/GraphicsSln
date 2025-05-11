@@ -62,14 +62,19 @@
         name = $"Line{id++}", 
         color = "#000000", 
         Algorithm = AlgorithmType.BresenhamLine,
-        XStart = 5,
-        XEnd = 10,
-        YStart = 5,
-        YEnd = 20
+        XStart = 0,
+        XEnd = 0,
+        YStart = 0,
+        YEnd = 0
     };
-    
-    private async Task HandleValidSubmit()
+
+    private void HandleValidSubmit()
     {
+        InvokeAsync(Draw);
+    }
+    
+
+    private async Task Draw(){
         ImageBuilder ImgBuilder = new();
         // reset line
         LineModel NewLine = new LineModel {

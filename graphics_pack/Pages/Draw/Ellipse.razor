@@ -59,7 +59,11 @@
         color = "#613583"
     };
 
-    private async Task HandleValidSubmit(EditContext obj)
+    private async Task HandleValidSubmit()
+    {
+        InvokeAsync(Draw);
+    }
+    private async Task Draw()
     {
         ImageBuilder ImgBuilder = new();
         EllipseModel NewEllipse = new EllipseModel

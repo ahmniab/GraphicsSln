@@ -21,12 +21,13 @@
 @code {
     RotationModel RotationModel = new RotationModel { AngleDeg = 0};
 
-    public async Task HandleValidSubmit()
+    public void HandleValidSubmit() => InvokeAsync(Apply);
+    public async Task Apply()
     {
         Factory.AddTransformation(RotationModel);
         RotationModel = new RotationModel { AngleDeg = 0};
-        await InvokeAsync(Factory.ApplyAndSave);
-        await InvokeAsync(TranState.NotifyStateChanged);
+        Factory.ApplyAndSave();
+        TranState.NotifyStateChanged();
     }
     
 }
